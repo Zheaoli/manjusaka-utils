@@ -10,6 +10,7 @@ readme = "README.md"
 python = "^3.11"
 pyyaml = "^6.0.1"
 pydantic = "^2.3.0"
+rich = "^13.5.2"
 
 
 [build-system]

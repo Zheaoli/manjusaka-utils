@@ -1,40 +1,7 @@
-import enum
-import re
 from dataclasses import dataclass
 from typing import Optional
 
-
-class MatcherTypeEnum(enum.IntEnum):
-    MatchEqual = 0
-    MatchNotEqual = 1
-    MatchRegex = 2
-    MatchNotRegex = 3
-
-
-@dataclass
-class Matcher:
-    type: MatcherTypeEnum
-    name: str
-    value: str
-    regex: Optional[re.Pattern] = None
-
-    def match(self, value: str) -> bool:
-        match self.type:
-            case MatcherTypeEnum.MatchEqual:
-                return self.value == value
-            case MatcherTypeEnum.MatchNotEqual:
-                return self.value != value
-            case MatcherTypeEnum.MatchRegex:
-                return bool(self.regex.match(value))
-            case MatcherTypeEnum.MatchNotRegex:
-                return not bool(self.regex.match(value))
-        raise ValueError(f"Unknown matcher type: {self.type}")
-
-
-@dataclass
-class Label:
-    name: str
-    value: str
+from scripts.am.label.parser import Label, Matcher
 
 
 @dataclass
@@ -66,3 +33,6 @@ class Route:
             else:
                 return False
         return True
+
+    def __str__(self):
+        return f"receiver: {self.receiver}"
